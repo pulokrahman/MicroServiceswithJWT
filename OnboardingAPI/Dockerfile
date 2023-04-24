@@ -3,6 +3,7 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80
+ENV "RecDb"="Data Source=host.docker.internal,1433;Initial Catalog=Recruiting;Trusted_Connection=false;Integrated security=false;Encrypt=False;User ID=sa;Password=!Wang0371;"
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src

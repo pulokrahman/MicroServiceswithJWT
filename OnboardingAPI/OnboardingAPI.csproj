@@ -19,4 +19,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Onboarding.Core\Onboarding.Core.csproj" />
+    <ProjectReference Include="..\Onboarding.Infrastructure\Onboarding.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

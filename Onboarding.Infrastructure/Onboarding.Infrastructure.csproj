@@ -16,8 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\" />
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\Onboarding.Core\Onboarding.Core.csproj" />
   </ItemGroup>
 
 </Project>
