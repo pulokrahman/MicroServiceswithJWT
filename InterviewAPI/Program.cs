@@ -1,3 +1,11 @@
+using Interview.Core.Contracts.Repositories;
+using Interview.Core.Contracts.Services;
+using Interview.Infrastructure.Data;
+using Interview.Infrastructure.Repositories;
+using Interview.Infrastructure.Services;
+using InterviewAPI.Middlewares;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,7 +14,34 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+var connectionString = Environment.GetEnvironmentVariable("RecDb");
+builder.Services.AddDbContext<InterviewDbContext>(options =>
+{
+    if (connectionString != null && connectionString.Length > 1)
+    {
+        options.UseSqlServer(connectionString);
+    }
+    else
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("RecDb"));
+    }
+    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+});
+builder.Services.AddLogging();
+builder.Services.AddScoped<IInterviewRepository, InterviewRepository>();
+builder.Services.AddScoped<IInterviewService, InterviewService>();
 
+builder.Services.AddScoped<IInterviewFeedbackRepository, InterviewFeedbackRepository>();
+builder.Services.AddScoped<IInterviewFeedbackService, InterviewFeedbackService>();
+
+builder.Services.AddScoped<IInterviewerRepository, InterviewerRepository>();
+builder.Services.AddScoped<IInterviewerService, InterviewerService>();
+
+builder.Services.AddScoped<IInterviewTypeRepository, InterviewTypeRepository>();
+builder.Services.AddScoped<IInterviewTypeService, InterviewTypeService>();
+
+builder.Services.AddScoped<IRecruiterRepository, RecruiterRepository>();
+builder.Services.AddScoped<IRecruiterService, RecruiterService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -17,7 +52,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
-
+app.UseExceptionMiddleware();
 app.MapControllers();
 
 app.Run();
