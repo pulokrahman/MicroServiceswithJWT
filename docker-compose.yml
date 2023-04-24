@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  recruitingapi:
+    image: ${DOCKER_REGISTRY-}recruitingapi
+    build:
+      context: .
+      dockerfile: RecruitingAPI/Dockerfile
+
+  onboardingapi:
+    image: ${DOCKER_REGISTRY-}onboardingapi
+    build:
+      context: .
+      dockerfile: OnboardingAPI/Dockerfile
+
+
+  authenticationapi:
+    image: ${DOCKER_REGISTRY-}authenticationapi
+    build:
+      context: .
+      dockerfile: AuthenticationAPI/Dockerfile
+
+
+  interviewapi:
+    image: ${DOCKER_REGISTRY-}interviewapi
+    build:
+      context: .
+      dockerfile: InterviewAPI/Dockerfile
+
