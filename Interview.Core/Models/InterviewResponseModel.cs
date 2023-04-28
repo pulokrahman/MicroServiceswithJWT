@@ -15,7 +15,6 @@ namespace Interview.Core.Models
         public int InterviewRound { get; set; }
         public DateTime? ScheduledOn { get; set; }
         public int InterviewerId { get; set; }
-        public int FeedbackId { get; set; }
 
 
 

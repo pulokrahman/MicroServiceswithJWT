@@ -48,7 +48,7 @@ namespace Interview.Infrastructure.Repositories
         {
             using (IDbConnection conn = dbContext.GetConnection())
             {
-                return await conn.ExecuteAsync("Insert Into Interviews Values(@RecruiterId, @SubmissionId, @InterviewTypeCode, @InterviewRound, @ScheduledOn, @InterviewerId, @FeedbackId)", entity);
+                return await conn.ExecuteAsync("Insert Into Interviews Values(@RecruiterId, @SubmissionId, @InterviewTypeCode, @InterviewRound, @ScheduledOn, @InterviewerId)", entity);
             }
         }
 

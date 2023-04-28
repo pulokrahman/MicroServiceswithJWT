@@ -10,6 +10,6 @@ namespace Recruiting.Core.Models
     public class SubmissionStatusResponseModel
     {
         public int LookupCode { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
     }
 }

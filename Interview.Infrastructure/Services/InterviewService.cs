@@ -30,7 +30,6 @@ namespace Interview.Infrastructure.Services
                     InterviewRound=model.InterviewRound,   
                     ScheduledOn=model.ScheduledOn,
                     InterviewerId=model.InterviewerId,
-                    FeedbackId=model.FeedbackId,
                 };
             }
             return await repository.InsertAsync(var);
@@ -53,7 +52,6 @@ namespace Interview.Infrastructure.Services
                 InterviewRound = x.InterviewRound,
                 ScheduledOn = x.ScheduledOn,
                 InterviewerId = x.InterviewerId,
-                FeedbackId = x.FeedbackId,
             });
         }
 
@@ -71,7 +69,6 @@ namespace Interview.Infrastructure.Services
                     InterviewRound = x.InterviewRound,
                     ScheduledOn = x.ScheduledOn,
                     InterviewerId = x.InterviewerId,
-                    FeedbackId = x.FeedbackId,
                 };
             }
             throw new NotFoundException();
@@ -95,7 +92,6 @@ namespace Interview.Infrastructure.Services
                     InterviewRound = model.InterviewRound,
                     ScheduledOn = model.ScheduledOn,
                     InterviewerId = model.InterviewerId,
-                    FeedbackId = model.FeedbackId,
                 };
                 return await repository.UpdateAsync(var);
             }

@@ -49,7 +49,7 @@ namespace Interview.Infrastructure.Repositories
         {
             using (IDbConnection conn = dbContext.GetConnection())
             {
-                return await conn.ExecuteAsync("Insert Into Interviewers Values(@FirstName, @LastName, @EmployeeId)", entity);
+                return await conn.QuerySingleAsync<int>("Insert Into Interviewers Output Inserted.InterviewerId Values(@FirstName, @LastName, @EmployeeId)", entity);
             }
         }
 

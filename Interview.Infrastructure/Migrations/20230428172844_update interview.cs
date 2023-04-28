@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Interview.Infrastructure.Migrations
 {
-    public partial class initInterview : Migration
+    public partial class updateinterview : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -64,7 +64,6 @@ namespace Interview.Infrastructure.Migrations
                     InterviewRound = table.Column<int>(type: "int", nullable: false),
                     ScheduledOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     InterviewerId = table.Column<int>(type: "int", nullable: false),
-                    FeedbackId = table.Column<int>(type: "int", nullable: false),
                     InterviewTypeLookupCode = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -113,8 +112,7 @@ namespace Interview.Infrastructure.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_InterviewFeedbacks_InterviewId",
                 table: "InterviewFeedbacks",
-                column: "InterviewId",
-                unique: true);
+                column: "InterviewId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Interviews_InterviewerId",

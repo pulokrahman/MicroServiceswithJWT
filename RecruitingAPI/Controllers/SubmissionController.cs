@@ -26,7 +26,7 @@ namespace RecruitingAPI.Controllers
             return BadRequest();
         }
 
-        [HttpGet("Get")]
+        [HttpGet("Get/{id}")]
         public async Task<IActionResult> Get(int id)
         {
             return Ok(await service.GetSubmissionByIdAsync(id));

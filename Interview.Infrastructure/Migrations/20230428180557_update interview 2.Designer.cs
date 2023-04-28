@@ -4,16 +4,18 @@ using Interview.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace Interview.Infrastructure.Migrations
 {
-    [DbContext(typeof(InterviewDbContext))]
-    partial class InterviewDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(InterviewEFDbContext))]
+    [Migration("20230428180557_update interview 2")]
+    partial class updateinterview2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,16 +32,10 @@ namespace Interview.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InterviewId"), 1L, 1);
 
-                    b.Property<int>("FeedbackId")
-                        .HasColumnType("int");
-
                     b.Property<int>("InterviewRound")
                         .HasColumnType("int");
 
                     b.Property<int>("InterviewTypeCode")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("InterviewTypeLookupCode")
                         .HasColumnType("int");
 
                     b.Property<int>("InterviewerId")
@@ -56,7 +52,7 @@ namespace Interview.Infrastructure.Migrations
 
                     b.HasKey("InterviewId");
 
-                    b.HasIndex("InterviewTypeLookupCode");
+                    b.HasIndex("InterviewTypeCode");
 
                     b.HasIndex("InterviewerId");
 
@@ -108,8 +104,7 @@ namespace Interview.Infrastructure.Migrations
 
                     b.HasKey("InterviewFeedbackId");
 
-                    b.HasIndex("InterviewId")
-                        .IsUnique();
+                    b.HasIndex("InterviewId");
 
                     b.ToTable("InterviewFeedbacks");
                 });
@@ -158,7 +153,9 @@ namespace Interview.Infrastructure.Migrations
                 {
                     b.HasOne("Interview.Core.Entities.InterviewType", "InterviewType")
                         .WithMany("Interviews")
-                        .HasForeignKey("InterviewTypeLookupCode");
+                        .HasForeignKey("InterviewTypeCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Interview.Core.Entities.Interviewer", "Interviewer")
                         .WithMany("Interviews")
@@ -182,8 +179,8 @@ namespace Interview.Infrastructure.Migrations
             modelBuilder.Entity("Interview.Core.Entities.InterviewFeedback", b =>
                 {
                     b.HasOne("Interview.Core.Entities.Interview", "Interview")
-                        .WithOne("InterviewFeedback")
-                        .HasForeignKey("Interview.Core.Entities.InterviewFeedback", "InterviewId")
+                        .WithMany("InterviewFeedback")
+                        .HasForeignKey("InterviewId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

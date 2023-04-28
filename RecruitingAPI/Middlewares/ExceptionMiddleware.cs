@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace RecruitingAPI.Middlewares
@@ -8,16 +10,26 @@ namespace RecruitingAPI.Middlewares
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-
-        public ExceptionMiddleware(RequestDelegate next)
+        private readonly ILogger<ExceptionMiddleware> _logger;
+        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
-        public Task Invoke(HttpContext httpContext)
+        public async Task Invoke(HttpContext httpContext)
         {
 
-            return _next(httpContext);
+            try
+            {
+                await _next(httpContext);
+            }catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                httpContext.Response.ContentType = "text/plain";
+                await httpContext.Response.WriteAsync("An unexpected error has occured.");
+            }
         }
     }
 

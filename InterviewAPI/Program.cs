@@ -16,18 +16,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var connectionString = Environment.GetEnvironmentVariable("RecDb");
 connectionString = connectionString != null && connectionString.Length > 1 ? connectionString : builder.Configuration.GetConnectionString("RecDb");
-//builder.Services.AddDbContext<InterviewDbContext>(options =>
-//{
-//    if (connectionString != null && connectionString.Length > 1)
-//    {
-//        options.UseSqlServer(connectionString);
-//    }
-//    else
-//    {
-//        options.UseSqlServer(builder.Configuration.GetConnectionString("RecDb"));
-//    }
-//    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-//});
+builder.Services.AddDbContext<InterviewEFDbContext>(options =>
+{
+    if (connectionString != null && connectionString.Length > 1)
+    {
+        options.UseSqlServer(connectionString);
+    }
+    else
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("RecDb"));
+    }
+    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+});
 builder.Services.AddSingleton(new InterviewDbContext(connectionString));
 builder.Services.AddLogging();
 builder.Services.AddScoped<IInterviewRepository, InterviewRepository>();

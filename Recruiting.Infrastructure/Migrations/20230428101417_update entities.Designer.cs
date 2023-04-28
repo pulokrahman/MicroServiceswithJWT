@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Recruiting.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using Recruiting.Infrastructure.Data;
 namespace Recruiting.Infrastructure.Migrations
 {
     [DbContext(typeof(RecruitingDbContext))]
-    partial class RecruitingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230428101417_update entities")]
+    partial class updateentities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,7 +78,7 @@ namespace Recruiting.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("varchar(max)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("EmployeeType")
                         .HasColumnType("nvarchar(max)");
@@ -130,6 +132,9 @@ namespace Recruiting.Infrastructure.Migrations
                     b.Property<int>("SubmissionStatusCode")
                         .HasColumnType("int");
 
+                    b.Property<int>("SubmissionStatusLookupCode")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("SubmittedOn")
                         .HasColumnType("datetime2");
 
@@ -137,7 +142,7 @@ namespace Recruiting.Infrastructure.Migrations
 
                     b.HasIndex("JobRequirementId");
 
-                    b.HasIndex("SubmissionStatusCode");
+                    b.HasIndex("SubmissionStatusLookupCode");
 
                     b.HasIndex("CandidateId", "JobRequirementId")
                         .IsUnique();
@@ -177,7 +182,7 @@ namespace Recruiting.Infrastructure.Migrations
 
                     b.HasOne("Recruiting.Core.Entities.SubmissionStatus", "SubmissionStatus")
                         .WithMany("Submissions")
-                        .HasForeignKey("SubmissionStatusCode")
+                        .HasForeignKey("SubmissionStatusLookupCode")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -1,8 +1,10 @@
 ﻿using Interview.Core.Contracts.Services;
 using Interview.Core.Models;
+using Interview.Core.Models.External;
+using InterviewAPI.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Net.Http;
 
 namespace InterviewAPI.Controllers
 {
@@ -52,6 +54,52 @@ namespace InterviewAPI.Controllers
                 return Ok(await service.UpdateInterviewAsync(model));
             }
             return BadRequest();
+        }
+        [HttpGet("OrganizeInterview")]
+        public async Task<IActionResult> Organize(int SubmissionId)
+        {
+            HttpClient client = new HttpClient();
+            var submissionResponse = await client.GetFromJsonAsync<SubmissionResponseModel>(ApiUrls.GetSubmission + SubmissionId);
+            if (submissionResponse == null)
+            {
+                return BadRequest();
+            }
+            var candidateResponse = await client.GetFromJsonAsync<CandidateResponseModel>(ApiUrls.GetCandidate + submissionResponse.CandidateId);
+            if (candidateResponse == null)
+            {
+                return BadRequest();
+            }
+            InterviewerRequestModel model = new InterviewerRequestModel
+            {
+                FirstName = candidateResponse.FirstName,
+                LastName = candidateResponse.LastName,
+                EmployeeId = candidateResponse.CandidateId
+            };
+            // todo
+            // add this interviewer to db though InterviewerController
+            // find a proper recruiter response this interview
+            var interviewerResponse = await client.PostAsJsonAsync("http://host.docker.internal:40125/api/interviewer/create", model);
+            InterviewRequestModel model2 = new InterviewRequestModel
+            {
+                RecruiterId = 1,
+                SubmissionId = submissionResponse.SubmissionId,
+                InterviewTypeCode = 1,
+                InterviewRound = 1,
+                ScheduledOn = DateTime.Today,
+                InterviewerId = Convert.ToInt32(await interviewerResponse.Content.ReadAsStringAsync()),
+            };
+            return await Create(model2);
+
+        }
+
+        [HttpGet("GetCandidate")]
+        public async Task<IActionResult> GetCandidate()
+        {
+            string str = "http://host.docker.internal:40123/api/candidate/getall";
+            HttpClient client = new HttpClient();
+            //  client.BaseAddress = new Uri( "http://localhost:40123/api/");
+            var candidateResponse = await client.GetFromJsonAsync<IEnumerable<CandidateResponseModel>>(str);
+            return Ok(candidateResponse);
         }
     }
 }

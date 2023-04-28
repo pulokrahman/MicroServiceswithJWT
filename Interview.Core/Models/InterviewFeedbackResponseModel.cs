@@ -13,5 +13,6 @@ namespace Interview.Core.Models
         public int InterviewFeedbackId { get; set; }
         public int Rating { get; set; }
         public string? Comment { get; set; }
+        public int InterviewId { get; set; }
     }
 }

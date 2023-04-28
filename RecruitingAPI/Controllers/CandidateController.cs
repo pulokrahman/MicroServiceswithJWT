@@ -11,10 +11,12 @@ namespace RecruitingAPI.Controllers
     public class CandidateController : ControllerBase
     {
         private readonly ICandidateService service;
-        public CandidateController(ICandidateService service)
+        private readonly ILogger<CandidateController> logger;
+        public CandidateController(ICandidateService service, ILogger<CandidateController> logger)
         {
             this.service = service;
-
+            this.logger = logger;
+            this.logger.LogInformation("Logger Activated!");
         }
 
         [HttpPost("Create")]
@@ -27,7 +29,7 @@ namespace RecruitingAPI.Controllers
             return BadRequest();
         }
 
-        [HttpGet("Get")]
+        [HttpGet("Get/{id}")]
         public async Task<IActionResult> Get(int id)
         {
             return Ok(await service.GetCandidateByIdAsync(id));

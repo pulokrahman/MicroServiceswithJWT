@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Recruiting.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using Recruiting.Infrastructure.Data;
 namespace Recruiting.Infrastructure.Migrations
 {
     [DbContext(typeof(RecruitingDbContext))]
-    partial class RecruitingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230428102617_update entities2")]
+    partial class updateentities2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

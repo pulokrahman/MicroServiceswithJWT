@@ -12,16 +12,16 @@ namespace Recruiting.Core.Entities
         public int JobRequirementId { get; set; }
         public int NumberOfPositions { get; set; }
         [Column(TypeName = "nvarchar(512)")]
-        public string Title { get; set; }
-        [Column(TypeName = "varchar")]
-        public string Description { get; set; }
+        public string? Title { get; set; }
+        [Column(TypeName = "varchar(max)")]
+        public string? Description { get; set; }
         public int HiringManagerId { get; set; }
         public string? HiringManagerName { get; set; }
         public DateTime StartDate { get; set; }
         public bool IsActivate { get; set; }
         public DateTime ClosedOn { get; set; }
         [Column(TypeName = "nvarchar(max)")]
-        public string ClosedReason { get; set; }
+        public string? ClosedReason { get; set; }
         public DateTime CreatedOn { get; set; }
         public string? JobCategory { get; set; }
         public string? EmployeeType { get; set; }

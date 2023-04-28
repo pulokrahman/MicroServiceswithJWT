@@ -14,7 +14,15 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(option => {
+
+    option.AddDefaultPolicy(policy => {
+        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    });
+});
 var connectionString = Environment.GetEnvironmentVariable("RecDb");
+connectionString = connectionString != null && connectionString.Length > 1 ? connectionString : builder.Configuration.GetConnectionString("RecDb");
+
 builder.Services.AddDbContext<RecruitingDbContext>(options =>
 {
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
@@ -44,6 +52,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
+app.UseRouting();
+app.UseCors();
 app.UseExceptionMiddleware();
 app.MapControllers();
 
