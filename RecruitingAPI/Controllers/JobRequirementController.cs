@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Recruiting.Core.Contracts.Services;
 using Recruiting.Core.Models;
@@ -7,6 +8,7 @@ namespace RecruitingAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class JobRequirementController : ControllerBase
     {
         private readonly IJobRequirementService service;
@@ -15,7 +17,7 @@ namespace RecruitingAPI.Controllers
             this.service = service;
 
         }
-
+        [Authorize]
         [HttpPost("Create")]
         public async Task<IActionResult> Create(JobRequirementRequestModel model)
         {

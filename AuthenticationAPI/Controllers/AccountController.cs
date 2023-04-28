@@ -1,5 +1,7 @@
 ﻿using Authentication.Core.Contracts.Services;
 using Authentication.Core.Models;
+using JWTAuthenticationManager;
+using JWTAuthenticationManager.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,10 +13,12 @@ namespace AuthenticationAPI.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountService service;
-        public AccountController(IAccountService service)
+        private readonly JwtTokenHandler jwtTokenHandler;
+
+        public AccountController(IAccountService service, JwtTokenHandler jwtTokenHandler)
         {
             this.service = service;
-
+            this.jwtTokenHandler = jwtTokenHandler;
         }
 
         [HttpPost("Create")]
@@ -54,5 +58,14 @@ namespace AuthenticationAPI.Controllers
             }
             return BadRequest();
         }
+        [HttpPost("Login")]
+
+        public async Task<IActionResult> Login(AuthenticationRequest request)
+        {
+            var response = jwtTokenHandler.GenerateToken(request);
+            if (response == null) return Unauthorized();
+            return Ok(response);
+        }
+
     }
 }

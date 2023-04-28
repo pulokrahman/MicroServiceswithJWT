@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\JWTAuthenticationManager\JWTAuthenticationManager.csproj" />
     <ProjectReference Include="..\Interview.Core\Interview.Core.csproj" />
     <ProjectReference Include="..\Interview.Infrastructure\Interview.Infrastructure.csproj" />
   </ItemGroup>

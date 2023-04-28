@@ -4,6 +4,7 @@ using Authentication.Infrastructure.Data;
 using Authentication.Infrastructure.Repositories;
 using Authentication.Infrastructure.Services;
 using AuthenticationAPI.Middlewares;
+using JWTAuthenticationManager;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,7 +31,7 @@ builder.Services.AddDbContext<AuthenticationDbContext>(options =>
 builder.Services.AddLogging();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
-
+builder.Services.AddSingleton<JwtTokenHandler>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 

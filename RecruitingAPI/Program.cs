@@ -1,3 +1,4 @@
+using JWTAuthenticationManager;
 using Microsoft.EntityFrameworkCore;
 using Recruiting.Core.Contracts.Repositories;
 using Recruiting.Core.Contracts.Services;
@@ -14,9 +15,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddCors(option => {
+builder.Services.AddCustomJwtTokenService();
+builder.Services.AddCors(option =>
+{
 
-    option.AddDefaultPolicy(policy => {
+    option.AddDefaultPolicy(policy =>
+    {
         policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
     });
 });
@@ -50,9 +54,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseAuthentication();
 
-app.UseAuthorization();
 app.UseRouting();
+app.UseAuthorization();
 app.UseCors();
 app.UseExceptionMiddleware();
 app.MapControllers();

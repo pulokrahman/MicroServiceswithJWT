@@ -25,17 +25,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthenticationAPI", "Authen
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{5C0F6C16-8A58-4FA0-B126-DA61D9C8EAC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication.Infrastructure", "Authentication.Infrastructure\Authentication.Infrastructure.csproj", "{9F27AA59-CB92-48C3-91DC-B3B11886C897}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication.Infrastructure", "Authentication.Infrastructure\Authentication.Infrastructure.csproj", "{9F27AA59-CB92-48C3-91DC-B3B11886C897}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication.Core", "Authentication.Core\Authentication.Core.csproj", "{3AE6138E-3A41-4917-9E22-D2D632749663}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interview.Core", "Interview.Core\Interview.Core.csproj", "{F00F5E28-7EB2-44D1-A083-C995AD7B28AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interview.Core", "Interview.Core\Interview.Core.csproj", "{F00F5E28-7EB2-44D1-A083-C995AD7B28AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interview.Infrastructure", "Interview.Infrastructure\Interview.Infrastructure.csproj", "{77093435-FE59-44F0-9FA3-5040C5665A9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interview.Infrastructure", "Interview.Infrastructure\Interview.Infrastructure.csproj", "{77093435-FE59-44F0-9FA3-5040C5665A9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Onboarding.Core", "Onboarding.Core\Onboarding.Core.csproj", "{B27A5688-2781-46BE-B9C0-EE091D8DEF49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Onboarding.Core", "Onboarding.Core\Onboarding.Core.csproj", "{B27A5688-2781-46BE-B9C0-EE091D8DEF49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Onboarding.Infrastructure", "Onboarding.Infrastructure\Onboarding.Infrastructure.csproj", "{CD34A518-C6EE-4471-8A5B-CD3EF4C2C706}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Onboarding.Infrastructure", "Onboarding.Infrastructure\Onboarding.Infrastructure.csproj", "{CD34A518-C6EE-4471-8A5B-CD3EF4C2C706}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JWTAuthenticationManager", "..\JWTAuthenticationManager\JWTAuthenticationManager.csproj", "{F7D823FF-6E8A-456A-8090-ACDB45F88277}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,6 +97,10 @@ Global
 		{CD34A518-C6EE-4471-8A5B-CD3EF4C2C706}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD34A518-C6EE-4471-8A5B-CD3EF4C2C706}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD34A518-C6EE-4471-8A5B-CD3EF4C2C706}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7D823FF-6E8A-456A-8090-ACDB45F88277}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7D823FF-6E8A-456A-8090-ACDB45F88277}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7D823FF-6E8A-456A-8090-ACDB45F88277}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7D823FF-6E8A-456A-8090-ACDB45F88277}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

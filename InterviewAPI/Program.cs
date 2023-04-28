@@ -5,6 +5,7 @@ using Interview.Infrastructure.Repositories;
 using Interview.Infrastructure.Services;
 using InterviewAPI.Middlewares;
 using Microsoft.EntityFrameworkCore;
+using JWTAuthenticationManager;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCustomJwtTokenService();
 var connectionString = Environment.GetEnvironmentVariable("RecDb");
 connectionString = connectionString != null && connectionString.Length > 1 ? connectionString : builder.Configuration.GetConnectionString("RecDb");
 builder.Services.AddDbContext<InterviewEFDbContext>(options =>
@@ -52,7 +54,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseAuthentication();
+app.UseRouting();
 app.UseAuthorization();
 app.UseExceptionMiddleware();
 app.MapControllers();
