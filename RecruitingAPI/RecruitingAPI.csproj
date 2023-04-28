@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\JWTAuthenticationManager\JWTAuthenticationManager.csproj" />
+    <ProjectReference Include="..\JWTAuthenticationManager\JWTAuthenticationManager.csproj" />
     <ProjectReference Include="..\Recruiting.Core\Recruiting.Core.csproj" />
     <ProjectReference Include="..\Recruiting.Infrastructure\Recruiting.Infrastructure.csproj" />
   </ItemGroup>
