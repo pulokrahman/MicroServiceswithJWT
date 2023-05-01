@@ -1,4 +1,6 @@
 ﻿using Authentication.Core.Entities;
+using Authentication.Core.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Authentication.Infrastructure.Data
 {
-    public class AuthenticationDbContext : DbContext
+    public class AuthenticationDbContext : IdentityDbContext<ApplicationUser>
     {
         public AuthenticationDbContext(DbContextOptions options) : base(options)
         {
@@ -19,8 +21,5 @@ namespace Authentication.Infrastructure.Data
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<Account> Accounts { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using Interview.Core.Models;
 using Interview.Core.Models.External;
 using InterviewAPI.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
@@ -10,6 +11,7 @@ namespace InterviewAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin,User")]
     public class InterviewController : ControllerBase
     {
         private readonly IInterviewService service;
@@ -76,7 +78,6 @@ namespace InterviewAPI.Controllers
                 EmployeeId = candidateResponse.CandidateId
             };
             // todo
-            // add this interviewer to db though InterviewerController
             // find a proper recruiter response this interview
             var interviewerResponse = await client.PostAsJsonAsync("http://host.docker.internal:40125/api/interviewer/create", model);
             InterviewRequestModel model2 = new InterviewRequestModel

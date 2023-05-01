@@ -1,10 +1,12 @@
 using Authentication.Core.Contracts.Repositories;
 using Authentication.Core.Contracts.Services;
+using Authentication.Core.Models;
 using Authentication.Infrastructure.Data;
 using Authentication.Infrastructure.Repositories;
 using Authentication.Infrastructure.Services;
 using AuthenticationAPI.Middlewares;
 using JWTAuthenticationManager;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,7 +30,9 @@ builder.Services.AddDbContext<AuthenticationDbContext>(options =>
     }
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AuthenticationDbContext>().AddDefaultTokenProviders();
 builder.Services.AddLogging();
+builder.Services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddSingleton<JwtTokenHandler>();

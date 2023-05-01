@@ -16,33 +16,21 @@ namespace JWTAuthenticationManager
     {
         public const string JWT_Secret_Key = "G-KaPdSgVkYp3s6v9y/B?E(H+MbQeThWmZq4t7w!z%C&F)J@NcRfUjXn2r5u8x/A";
         private const int JWT_Token_Validity_Min = 20;
-        private readonly List<UserAccount> userAccounts;
+
         public JwtTokenHandler()
         {
-            userAccounts = new List<UserAccount>() {
-            new UserAccount() {Username="admin", Password="admin@1234", Role="Admin"},
-            new UserAccount() {Username="scott", Password="scott@1234", Role="User"}
-            };
-        }
-        public AuthenticationResponse GenerateToken(AuthenticationRequest request)
-        {
-            if (string.IsNullOrEmpty(request.Username) || string.IsNullOrEmpty(request.Password))
-            {
-                return null;
-            }
 
-            var result = userAccounts.Where(x => x.Username == request.Username && x.Password == request.Password).FirstOrDefault();
-            if (result == null)
-            {
-                return null;
-            }
+        }
+        public AuthenticationResponse GenerateToken(AuthenticationRequest request, string role)
+        {
+
 
             //start working on jwt token
-            var tokenExpiryTime = DateTime.Now.AddMinutes(JWT_Token_Validity_Min);
+            var tokenExpiryTime = DateTime.UtcNow.AddMinutes(JWT_Token_Validity_Min);
             var tokenKey = Encoding.ASCII.GetBytes(JWT_Secret_Key);
             var claimsIdentity = new ClaimsIdentity(new List<Claim> {
              new Claim(JwtRegisteredClaimNames.Name,request.Username),
-             new Claim(ClaimTypes.Role,result.Role)
+             new Claim(ClaimTypes.Role,role)
             });
 
             var signingCredentials = new SigningCredentials(
@@ -59,7 +47,7 @@ namespace JWTAuthenticationManager
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
             var securityToken = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
             var token = jwtSecurityTokenHandler.WriteToken(securityToken);
-            return new AuthenticationResponse { Token = token, ExpiresIn = (int)tokenExpiryTime.Subtract(DateTime.Now).TotalSeconds, Username = result.Username };
+            return new AuthenticationResponse { Token = token, ExpiresIn = (int)tokenExpiryTime.Subtract(DateTime.Now).TotalSeconds, Username = request.Username };
         }
     }
 }
