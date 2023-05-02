@@ -12,8 +12,8 @@ using Recruiting.Infrastructure.Data;
 namespace Recruiting.Infrastructure.Migrations
 {
     [DbContext(typeof(RecruitingDbContext))]
-    [Migration("20230428102617_update entities2")]
-    partial class updateentities2
+    [Migration("20230501232726_Create")]
+    partial class Create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

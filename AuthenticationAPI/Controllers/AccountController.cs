@@ -15,13 +15,16 @@ namespace AuthenticationAPI.Controllers
     {
         private readonly IAccountService service;
         private readonly JwtTokenHandler jwtTokenHandler;
-        private readonly IAuthenticationRepository authenticationRepository;
+        private readonly IAuthenticationServiceAsync authenticationServiceAsync;
 
-        public AccountController(IAccountService service, JwtTokenHandler jwtTokenHandler, IAuthenticationRepository authenticationRepository)
+      
+
+        public AccountController(IAccountService service, JwtTokenHandler jwtTokenHandler, IAuthenticationServiceAsync authenticationServiceAsync)
         {
             this.service = service;
             this.jwtTokenHandler = jwtTokenHandler;
-            this.authenticationRepository = authenticationRepository;
+            
+            this.authenticationServiceAsync = authenticationServiceAsync;
         }
 
         [HttpPost("Create")]
@@ -65,14 +68,14 @@ namespace AuthenticationAPI.Controllers
 
         public async Task<IActionResult> Login(LoginModel model)
         {
-            var result = await authenticationRepository.LoginAsync(model);
+            var result = await authenticationServiceAsync.LoginAsync(model);
             if (result.Succeeded)
             {
                 AuthenticationRequest request = new AuthenticationRequest() {
                  Username = model.Username,
                  Password = model.Password
                 };
-                var response = jwtTokenHandler.GenerateToken(request, "admin");
+                var response = jwtTokenHandler.GenerateToken(request, "Admin");
                 if (response == null) return Unauthorized();
                 return Ok(response);
             }
@@ -82,7 +85,7 @@ namespace AuthenticationAPI.Controllers
         [HttpPost("SignUp")]
         public async Task<IActionResult> SignUp(SignUpModel model)
         {
-            var result = await authenticationRepository.SignUpAsync(model);
+            var result = await authenticationServiceAsync.SignUpAsync(model);
             if (result.Succeeded) return Ok("Your account has been created");
 
             return BadRequest();

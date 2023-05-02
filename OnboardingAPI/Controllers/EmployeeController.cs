@@ -2,12 +2,13 @@
 using Onboarding.Core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace OnboardingAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin,User")]
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeService service;

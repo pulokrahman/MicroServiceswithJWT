@@ -35,6 +35,7 @@ builder.Services.AddLogging();
 builder.Services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IAuthenticationServiceAsync, AuthenticationServiceAsync>();
 builder.Services.AddSingleton<JwtTokenHandler>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IRoleService, RoleService>();

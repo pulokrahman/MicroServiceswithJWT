@@ -21,6 +21,8 @@ services:
 
   authenticationapi:
     image: ${DOCKER_REGISTRY-}authenticationapi
+    ports:
+    - "40126:80"
     build:
       context: .
       dockerfile: AuthenticationAPI/Dockerfile

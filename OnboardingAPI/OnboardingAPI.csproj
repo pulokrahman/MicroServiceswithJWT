@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\JWTAuthenticationManager\JWTAuthenticationManager.csproj" />
     <ProjectReference Include="..\Onboarding.Core\Onboarding.Core.csproj" />
     <ProjectReference Include="..\Onboarding.Infrastructure\Onboarding.Infrastructure.csproj" />
   </ItemGroup>

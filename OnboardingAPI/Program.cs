@@ -1,3 +1,4 @@
+using JWTAuthenticationManager;
 using Microsoft.EntityFrameworkCore;
 using Onboarding.Core.Contracts.Repositories;
 using Onboarding.Core.Contracts.Services;
@@ -15,6 +16,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var connectionString = Environment.GetEnvironmentVariable("RecDb");
+builder.Services.AddCustomJwtTokenService();
+
 builder.Services.AddDbContext<OnboardingDbContext>(options =>
 {
     if (connectionString != null && connectionString.Length > 1)
@@ -48,8 +51,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseAuthorization();
+app.UseAuthentication();
 
+app.UseRouting();
+app.UseAuthorization();
 app.MapControllers();
 app.UseExceptionMiddleware();
 app.Run();
